@@ -1,0 +1,34 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Missing - {{ parent() }}{% endblock %}
+{% block content %}
+    <div class="container">
+        <h1>Missing Classmates</h1>
+        <p>This is a list of classmates who graduated with us, but we don't have addresses for. If you have contact with any of these people, please let them know about the reunion and <a href="/contact">contact us with their information.</a></p>
+        <ul>
+            {% for classmate in classmates_missing %}
+                <li>{{ classmate.__toString|e }}</li>
+            {% endfor %}
+        </ul>
+        <p>This is a list of classmates who, for whatever reason, did not graduate with us, but attended a portion of high school with us. If you know where any of these people are, please let them know they are welcome at the reunion, and <a href="/contact">contact us with their information.</a></p>
+        <h4>Missing after '93</h4>
+        <ul class="list-unstyled row">
+            {% for classmate in classmates_missing_after_93 %}
+                <li class="list-item col-sm-4">{{ classmate.__toString|e }}</li>
+            {% endfor %}
+        </ul>
+        <h4>Missing after '92</h4>
+        <ul class="list-unstyled row">
+            {% for classmate in classmates_missing_after_92 %}
+                <li class="list-item col-sm-4">{{ classmate.__toString|e }}</li>
+            {% endfor %}
+        </ul>
+        <h4>Missing after '91</h4>
+        <ul class="list-unstyled row">
+            {% for classmate in classmates_missing_after_91 %}
+                <li class="list-item col-sm-4">{{ classmate.__toString|e }}</li>
+            {% endfor %}
+        </ul>
+
+    </div>
+{% endblock %}

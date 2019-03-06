@@ -1,0 +1,10 @@
+twig:
+    default_path: '%kernel.project_dir%/templates'
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
+    globals:
+        classmate_photos: '%app.path.classmate_photos%'
+        reunion_photos: '%app.path.reunion_photos%'
+        site_name: '%env(site_name)%'
+        short_name: '%env(short_name)%'
+    form_themes: ['bootstrap_4_layout.html.twig']

@@ -1,0 +1,34 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item"><a href="/classmate">Classmates</a></li>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Classmates</h1>
+        <ul class="list-group">
+            {% for classmate in classmates %}
+                <li class="classmate list-group-item row">
+                    <div class="row">
+                        <div class="col clickable-row" data-href="/classmate/{{ classmate.id }}">
+                            <a href="/classmate/{{ classmate.id }}">{{ classmate.getFirstName|e }} {{ classmate.getLastName|e }}</a>
+                        </div>
+                        <div class="col text-right">
+                            {%  for info in classmate.getClassmateInfos %}
+                                {% if info.getPhotoUrl != "" %}
+                                    <a href="{{ asset('uploads/photos/classmate/' ~ info.getPhotoUrl) | imagine_filter('portrait_optimal') }}" data-title="{{ classmate.__toString|e }} - {{ info.getClassmateYear.getReunionYear }}" data-gallery="classmate-{{ classmate.id }}-name" data-toggle="lightbox">
+                                        <button type="button" data-url="{{ classmate_photos }}/{{ info.getPhotoUrl }}" class="btn btn-primary btn-sm">{{ info.getClassmateYear.getReunionYear }}</button>
+                                    </a>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+{% endblock %}

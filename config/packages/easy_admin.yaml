@@ -1,0 +1,199 @@
+easy_admin:
+  site_name: '%env(site_name)%'
+  formats:
+    date:     'm/d/Y'
+    time:     'h:i A e'
+    datetime: 'm/d/Y h:i:s A e'
+  design:
+    assets:
+      js: ['https://code.jquery.com/jquery-3.3.1.min.js', 'https://code.jquery.com/ui/1.12.1/jquery-ui.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js', 'assets/js/init_date_picker.js']
+      css: ['https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css']
+  entities:
+    Classmate:
+      class: App\Entity\Classmate
+      disabled_actions: ['delete']
+      show:
+        fields:
+          - { property: 'first_name', label: 'First Name' }
+          - { property: 'last_name', label: 'Last Name' }
+          - { property: 'current_name', label: 'Current Name' }
+          - { property: 'significant_other', label: 'Significant Other' }
+          - { property: 'is_missing', label: 'Missing?' }
+          - { property: 'is_deceased', label: 'Deceased?' }
+          - 'classmate_infos'
+          - 'classmate_addresses'
+          - 'classmate_attendances'
+      list:
+        fields:
+          - 'id'
+          - { property: 'first_name', label: 'First Name' }
+          - { property: 'last_name', label: 'Last Name' }
+          - { property: 'current_name', label: 'Name (if changed)' }
+          - { property: 'is_deceased', label: 'Deceased?' }
+          - { property: 'is_missing', label: 'Missing?' }
+          - { property: 'updated_date', type: 'datetime', label: 'Updated Date'}
+        actions: ['show']
+      form:
+        fields:
+          - { property: 'first_name', type: 'text', label: 'First Name' }
+          - { property: 'last_name', type: 'text', label: 'Last Name' }
+          - { property: 'current_name', type: 'text', label: 'Current Name' }
+          - { property: 'significant_other', type: 'text', label: 'Significant Other' }
+          - { property: 'is_missing', type: 'choice', label: 'Missing?', type_options: { choices: '%is_missing_status%' } }
+          - { property: 'is_deceased', label: 'Deceased?' }
+      search:
+        fields: ['first_name', 'last_name', 'current_name']
+    Addresses:
+      class: App\Entity\ClassmateAddress
+      disabled_actions: ['delete']
+      show:
+        fields:
+          - { property: 'classmate' }
+          - { property: 'classmate_year' }
+          - { property: 'address_1' }
+          - { property: 'address_2' }
+          - { property: 'city'}
+          - { property: 'state' }
+          - { property: 'zip' }
+          - { property: 'phone' }
+      list:
+        fields:
+          - 'id'
+          - { property: 'classmate_year', type: 'text', label: 'Reunion Year' }
+          - { property: 'classmate', type: 'text', label: 'Classmate' }
+          - 'address_1'
+          - 'city'
+          - 'state'
+          - 'zip'
+          - 'phone'
+          - { property: 'updated_date', type: 'datetime', label: 'Updated Date'}
+        actions: ['show']
+      form:
+        fields:
+          - { property: 'classmate', type: 'entity', type_options: { class: 'App\Entity\Classmate', multiple: false } }
+          - { property: 'classmate_year', type: 'entity', type_options: { class: 'App\Entity\ClassmateYear', multiple: false } }
+          - { property: 'address_1' }
+          - { property: 'address_2' }
+          - { property: 'city'}
+          - { property: 'state' }
+          - { property: 'zip' }
+          - { property: 'phone' }
+      search:
+        fields: ['classmate.first_name', 'classmate.last_name', 'classmate.current_name', 'classmate_year.reunion_year']
+    Attendance:
+      class: App\Entity\ClassmateAttendance
+      disabled_actions: ['delete']
+      show:
+        fields:
+          - { property: 'classmate' }
+          - { property: 'classmate_year' }
+          - { property: 'num_attendees', label: 'Classmate plus Guest' }
+          - { property: 'attendees', label: 'Attendee Names' }
+          - { property: 'status', label: 'Payment Status' }
+          - { property: 'response_date', label: 'Response Date', type_options: {'widget': 'single_text', 'attr': {'id': 'datetimepicker'}} }
+      list:
+        fields:
+          - 'id'
+          - { property: 'classmate_year', type: 'text', label: 'Reunion Year' }
+          - { property: 'classmate', type: 'text', label: 'Classmate' }
+          - { property: 'updated_date', type: 'datetime', label: 'Updated Date'}
+        actions: ['show']
+      form:
+        fields:
+          - { property: 'classmate', type: 'entity', type_options: { class: 'App\Entity\Classmate', multiple: false } }
+          - { property: 'classmate_year', type: 'entity', type_options: { class: 'App\Entity\ClassmateYear', multiple: false } }
+          - { property: 'num_attendees', label: 'Classmate plus Guest' }
+          - { property: 'attendees', label: 'Attendee Names' }
+          - { property: 'status', label: 'Payment Status' }
+          - { property: 'response_date', label: 'Response Date', type_options: {'widget': 'single_text', 'attr': {'id': 'datetimepicker'}} }
+      search:
+        fields: ['classmate.first_name', 'classmate.last_name', 'classmate.current_name', 'classmate_year.reunion_year']
+    Info:
+      class: App\Entity\ClassmateInfo
+      disabled_actions: ['delete']
+      show:
+        fields:
+          - { property: 'classmate' }
+          - { property: 'classmate_year' }
+          - { property: 'email' }
+          - { property: 'info_string' }
+          - { property: 'photo_file' }
+      list:
+        fields:
+          - 'id'
+          - { property: 'photo_url', type: 'image', base_path: '%app.path.classmate_photos%' }
+          - { property: 'classmate_year', type: 'text', label: 'Reunion Year' }
+          - { property: 'classmate', type: 'text', label: 'Classmate' }
+          - 'email'
+          - { property: 'updated_date', type: 'datetime', label: 'Updated Date'}
+        actions: ['show']
+      form:
+        fields:
+          - { property: 'classmate', type: 'entity', type_options: { class: 'App\Entity\Classmate', multiple: false } }
+          - { property: 'classmate_year', type: 'entity', type_options: { class: 'App\Entity\ClassmateYear', multiple: false } }
+          - { property: 'email', type: 'email'}
+          - { property: 'info_string', type: 'fos_ckeditor' }
+          - { property: 'photo_file', type: 'vich_image' }
+      search:
+        fields: ['classmate.first_name', 'classmate.last_name', 'classmate.current_name', 'classmate_year.reunion_year']
+    Year:
+      class: App\Entity\ClassmateYear
+      disabled_actions: ['delete']
+      show:
+        fields:
+          - { property: 'reunion_year', format: '%%s' }
+          - { property: 'reunion_photo_file' }
+          - { property: 'reunion_date' }
+      list:
+        fields:
+          - 'id'
+          - { property: 'reunion_photo_url', type: 'image', base_path: '%app.path.reunion_photos%' }
+          - { property: 'reunion_year', format: '%%s' }
+          - 'reunion_date'
+          - { property: 'updated_date', type: 'datetime', label: 'Updated Date'}
+        actions: ['show']
+      form:
+        fields:
+          - { property: 'reunion_year', type: 'number', label: 'Year' }
+          - { property: 'reunion_photo_file', type: 'vich_image' }
+          - { property: 'reunion_date', label: 'Reunion Date', type_options: {'widget': 'single_text', 'attr': {'id': 'datetimepicker'}} }
+    Contact:
+      class: App\Entity\Contact
+      show:
+        fields:
+          - { property: 'classmate' }
+          - { property: 'classmate_year' }
+          - { property: 'current_name' }
+          - { property: 'significant_other' }
+          - { property: 'address_1' }
+          - { property: 'address_2' }
+          - { property: 'city'}
+          - { property: 'state' }
+          - { property: 'zip' }
+          - { property: 'phone' }
+          - { property: 'email' }
+          - { property: 'info_string' }
+          - { property: 'updated_date', type: 'datetime' }
+      list:
+        fields:
+          - 'id'
+          - { property: 'classmate' }
+          - { property: 'classmate_year' }
+          - { property: 'updated_date', type: 'datetime' }
+        actions: ['show']
+      form:
+        fields:
+          - { property: 'classmate' }
+          - { property: 'classmate_year' }
+          - { property: 'current_name' }
+          - { property: 'significant_other' }
+          - { property: 'address_1' }
+          - { property: 'address_2' }
+          - { property: 'city'}
+          - { property: 'state' }
+          - { property: 'zip' }
+          - { property: 'phone' }
+          - { property: 'email' }
+          - { property: 'info_string' }
+      search:
+        fields: ['classmate.first_name', 'classmate.last_name', 'classmate.current_name', 'classmate_year.reunion_year']

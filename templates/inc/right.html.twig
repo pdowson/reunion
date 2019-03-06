@@ -1,0 +1,29 @@
+<div class="container">
+    <a href="https://www.clinton.k12.ia.us/" target="_blank"><img src="/assets/img/logo.png" alt="&copy; Clinton Schools" class="mx-auto d-block my-4" /></a>
+    <h1>Send Payment</h1>
+    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+        <input type="hidden" name="cmd" value="_s-xclick">
+        <input type="hidden" name="on1" value="Attendee Name">
+        <input type="hidden" name="on0" value="Number of Attendees">
+        <div class="form-group">
+            <label for="attendee_name">Attendee Name</label>
+            <input type="type" class="form-control" name="os1" id="attendee_name" placeholder="Enter Your Name" maxlength="200">
+        </div>
+        <div class="form-group">
+            <label for="total_attendees">Total Attendees</label>
+            <select name="os0" class="form-control" id="total_attendees">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+        </div>
+        <div class="form-group text-center">
+            <input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----">
+            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_paynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+            <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+        </div>
+    </form>
+
+</div>

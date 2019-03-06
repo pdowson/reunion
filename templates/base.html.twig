@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<head>
+    {% block head %}
+    {% include 'inc/css.html.twig' %}
+    <title>{% block title %}{% endblock %}{{ site_name }}</title>
+    {% endblock %}
+</head>
+<body>
+
+{% block body %}
+    {% include 'inc/nav.html.twig' %}
+    <!-- Page Content -->
+    <main role="main" class="container">
+        <a href="javascript:" id="return-to-top"><i class="fa fa-chevron-up"></i></a>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb my-2">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                {% block breadcrumb %}{% endblock %}
+            </ol>
+        </nav>
+        {% include 'inc/flash_messages.html.twig' %}
+        <div class="row">
+            <div class="container col-md-12 col-lg-8">
+                {% block content %}{% endblock %}
+            </div>
+            <div class="container col-md-12 col-lg-4">
+                {% include 'inc/right.html.twig' %}
+            </div>
+
+        </div>
+
+
+    </main>
+    <!-- /.container -->
+{% endblock %}
+</body>
+
+{% include 'inc/foot.html.twig' %}
+{% include 'inc/js.html.twig' %}

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact Us - {{ parent() }}{% endblock title %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active"><a href="/contact">Contact</a></li>
+{% endblock %}
+
+{% block content %}
+    {% include 'inc/contact_inc.html.twig' %}
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ classmate.__toString|e }} - {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item"><a href="/classmate">Classmates</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ classmate.__toString|e }}</li>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>{{ classmate.__toString|e }}</h1>
+        <p><strong>Last Updated:</strong> <em>{{ classmate.getUpdatedDate|date("m/d/Y") }}</em></p>
+        {% for info in classmate.getClassmateInfos %}
+            {% if info.getPhotoUrl %}
+                <figure class="figure">
+                    <a href="{{ asset('uploads/photos/classmate/' ~ info.getPhotoUrl) | imagine_filter('portrait_optimal') }}" data-title="{{ classmate.__toString|e }} - {{ info.getClassmateYear.getReunionYear }}" data-gallery="classmate-{{ classmate.id }}-name" data-toggle="lightbox">
+                        <img class="figure-img img-fluid rounded" src="{{ asset('uploads/photos/classmate/' ~ info.getPhotoUrl) | imagine_filter('portrait_thumbnail') }}" />
+                    </a>
+                    <figcaption class="figure-caption text-right">{{ info.getClassmateYear.getReunionYear }}</figcaption>
+                </figure>
+            {% endif %}
+        {% endfor %}
+
+        {% for info in classmate.getClassmateInfos %}
+            {% if info.getInfoString %}
+                <p>
+                    <b>All information contained here is from data collected during the {{ info.getClassmateYear }} reunion</b><br />
+                    {{ info.getInfoString }}
+                </p>
+            {% endif %}
+        {% endfor %}
+
+
+        <h2>Send Information for {{ classmate.__toString|e }}</h2>
+        {% include 'inc/contact_inc.html.twig' %}
+    </div>
+{% endblock %}

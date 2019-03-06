@@ -1,0 +1,29 @@
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary static-top">
+    <div class="container">
+        <a class="navbar-brand" href="/">{{ site_name }}</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                {% set slug_part = app.request.pathinfo|split("/")|slice(1,1)[0] %}
+                <li class="nav-item{% if slug_part == "" %} active{% endif %}">
+                    <a class="nav-link" href="/">Home </a>
+                </li>
+                <li class="nav-item{% if slug_part == "classmate" %} active{% endif %}">
+                    <a class="nav-link" href="/classmate/">Classmates</a>
+                </li>
+                <li class="nav-item{% if slug_part == "missing" %} active{% endif %}">
+                    <a class="nav-link" href="/missing">Missing</a>
+                </li>
+                <li class="nav-item{% if slug_part == "contact" %} active{% endif %}">
+                    <a class="nav-link" href="/contact">Contact Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin">Admin</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
