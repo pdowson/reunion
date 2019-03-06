@@ -5,9 +5,18 @@ easy_admin:
     time:     'h:i A e'
     datetime: 'm/d/Y h:i:s A e'
   design:
+    # these custom templates are applied to all entities
     assets:
-      js: ['https://code.jquery.com/jquery-3.3.1.min.js', 'https://code.jquery.com/ui/1.12.1/jquery-ui.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js', 'assets/js/init_date_picker.js']
-      css: ['https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css']
+      js:
+        - '//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'
+        - '//code.jquery.com/ui/1.12.1/jquery-ui.min.js'
+        - '//cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js'
+        - '//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js'
+        - 'assets/js/init_date_picker.js'
+      css:
+        - 'bundles/easyadmin/app.css'
+        - 'bundles/easyadminextension/stylesheet/full-width.css'
+        - '//cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css'
   entities:
     Classmate:
       class: App\Entity\Classmate
@@ -24,12 +33,16 @@ easy_admin:
           - 'classmate_addresses'
           - 'classmate_attendances'
       list:
+        form_filters:
+          - enabled
+          - { property: is_deceased, label: 'Deceased?', type_options: { choices: { Yes: 1, No: 0 } } }
+          - { property: is_missing, label: 'Missing?', type_options: { choices: { not_missing: not_missing, missing: missing, missing_after_91: missing_after_91, missing_after_92: missing_after_92, missing_after_93: missing_after_93 } } }
         fields:
           - 'id'
           - { property: 'first_name', label: 'First Name' }
           - { property: 'last_name', label: 'Last Name' }
           - { property: 'current_name', label: 'Name (if changed)' }
-          - { property: 'is_deceased', label: 'Deceased?' }
+          - { property: 'is_deceased', type: 'boolean', label: 'Deceased?' }
           - { property: 'is_missing', label: 'Missing?' }
           - { property: 'updated_date', type: 'datetime', label: 'Updated Date'}
         actions: ['show']
@@ -57,10 +70,13 @@ easy_admin:
           - { property: 'zip' }
           - { property: 'phone' }
       list:
+        form_filters:
+          - enabled
+          - { property: 'classmate_year', label: 'Year' }
         fields:
           - 'id'
-          - { property: 'classmate_year', type: 'text', label: 'Reunion Year' }
-          - { property: 'classmate', type: 'text', label: 'Classmate' }
+          - { property: 'classmate_year' }
+          - { property: 'classmate' }
           - 'address_1'
           - 'city'
           - 'state'
@@ -92,10 +108,13 @@ easy_admin:
           - { property: 'status', label: 'Payment Status' }
           - { property: 'response_date', label: 'Response Date', type_options: {'widget': 'single_text', 'attr': {'id': 'datetimepicker'}} }
       list:
+        form_filters:
+          - enabled
+          - { property: 'classmate_year', label: 'Year' }
         fields:
           - 'id'
-          - { property: 'classmate_year', type: 'text', label: 'Reunion Year' }
-          - { property: 'classmate', type: 'text', label: 'Classmate' }
+          - { property: 'classmate_year' }
+          - { property: 'classmate' }
           - { property: 'updated_date', type: 'datetime', label: 'Updated Date'}
         actions: ['show']
       form:
@@ -119,11 +138,14 @@ easy_admin:
           - { property: 'info_string' }
           - { property: 'photo_file' }
       list:
+        form_filters:
+          - enabled
+          - { property: 'classmate_year', label: 'Year' }
         fields:
           - 'id'
           - { property: 'photo_url', type: 'image', base_path: '%app.path.classmate_photos%' }
-          - { property: 'classmate_year', type: 'text', label: 'Reunion Year' }
-          - { property: 'classmate', type: 'text', label: 'Classmate' }
+          - { property: 'classmate_year' }
+          - { property: 'classmate' }
           - 'email'
           - { property: 'updated_date', type: 'datetime', label: 'Updated Date'}
         actions: ['show']

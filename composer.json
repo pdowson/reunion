@@ -6,6 +6,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-json": "*",
+        "alterphp/easyadmin-extension-bundle": "^2.1",
         "easycorp/easyadmin-bundle": "^2.1",
         "friendsofsymfony/ckeditor-bundle": "^2.0",
         "gedmo/doctrine-extensions": "^2.4",
