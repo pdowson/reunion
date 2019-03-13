@@ -18,7 +18,7 @@ class ClassmateInfo extends BaseEntity
     private $photo_url;
 
     /**
-     * @Vich\UploadableField(mapping="classmate_photos", fileNameProperty="photo_url")
+     * @Vich\UploadableField(mapping="photo_url", fileNameProperty="photo_url")
      * @var File
      */
     private $photo_file;

@@ -26,7 +26,7 @@ class ClassmateYear extends BaseEntity
     private $reunion_photo_url;
 
     /**
-     * @Vich\UploadableField(mapping="reunion_photos", fileNameProperty="reunion_photo_url")
+     * @Vich\UploadableField(mapping="reunion_photo_url", fileNameProperty="reunion_photo_url")
      * @var File
      */
     private $reunion_photo_file;
