@@ -9,6 +9,7 @@ knp_gaufrette:
         options:
           create: true
           directory: photo_url
+          acl: 'public-read'
     reunion_photo_url_adapter:
       aws_s3:
         service_id: reunion_file_store.s3
@@ -17,6 +18,7 @@ knp_gaufrette:
         options:
           create: true
           directory: reunion_photo_url
+          acl: 'public-read'
   filesystems:
     photo_url_fs:
       adapter:    photo_url_adapter

@@ -7,8 +7,8 @@
         {% for reunion in reunions %}
             {% if reunion.getReunionPhotoUrl %}
                 <figure class="figure">
-                        <a href="{{ vich_uploader_asset(reunion, 'reunion_photo_file', 'App\\Entity\\ClassmateYear') | imagine_filter('reunion_optimal') }}" data-title="{{ short_name }} - {{ reunion.getReunionYear }} Reunion" data-gallery="reunion-gallery" data-toggle="lightbox">
-                            <img width="640" alt="{{ reunion.__toString|e }}" class="mt-2 rounded mx-auto d-block" src="{{ vich_uploader_asset(reunion, 'reunion_photo_file', 'App\\Entity\\ClassmateYear') | imagine_filter('reunion_thumbnail') }}" />
+                        <a href="{{ asset(reunion.getReunionPhotoUrl)| imagine_filter('reunion_optimal') }}" data-title="{{ short_name }} - {{ reunion.getReunionYear }} Reunion" data-gallery="reunion-gallery" data-toggle="lightbox">
+                            <img width="640" alt="{{ reunion.__toString|e }}" class="mt-2 rounded mx-auto d-block" src="{{ asset(reunion.getReunionPhotoUrl) | imagine_filter('reunion_thumbnail') }}" />
                         </a>
                     <figcaption class="figure-caption text-right">{{ reunion.getReunionYear }}</figcaption>
                 </figure>

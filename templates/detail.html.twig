@@ -14,8 +14,8 @@
         {% for info in classmate.getClassmateInfos %}
             {% if info.getPhotoUrl %}
                 <figure class="figure">
-                    <a href="{{ vich_uploader_asset(info, 'photo_file', 'App\\Entity\\ClassmateInfo') | imagine_filter('portrait_optimal') }}" data-title="{{ classmate.__toString|e }} - {{ info.getClassmateYear.getReunionYear }}" data-gallery="classmate-{{ classmate.id }}-name" data-toggle="lightbox">
-                        <img width="110" class="figure-img img-fluid rounded" alt="{{ classmate.__toString|e }} - {{ info.getClassmateYear.getReunionYear }}" src="{{ vich_uploader_asset(info, 'photo_file', 'App\\Entity\\ClassmateInfo') | imagine_filter('portrait_thumbnail') }}" />
+                    <a href="{{ asset(info.getPhotoUrl) | imagine_filter('portrait_optimal') }}" data-title="{{ classmate.__toString|e }} - {{ info.getClassmateYear.getReunionYear }}" data-gallery="classmate-{{ classmate.id }}-name" data-toggle="lightbox">
+                        <img width="110" class="figure-img img-fluid rounded" alt="{{ classmate.__toString|e }} - {{ info.getClassmateYear.getReunionYear }}" src="{{ asset(info.getPhotoUrl) | imagine_filter('portrait_thumbnail') }}" />
                     </a>
                     <figcaption class="figure-caption text-right">{{ info.getClassmateYear.getReunionYear }}</figcaption>
                 </figure>

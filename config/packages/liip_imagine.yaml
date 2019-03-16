@@ -1,7 +1,15 @@
 liip_imagine:
+  loaders:
+    reunion_photo_url_stream:
+      stream:
+        wrapper: gaufrette://reunion_photo_url_fs/
+    photo_url_stream:
+      stream:
+        wrapper: gaufrette://photo_url_fs/
   driver: "gd"
   filter_sets:
     portrait_thumbnail:
+      data_loader: photo_url_stream
       jpeg_quality:          85
       png_compression_level: 8
       filters:
@@ -12,6 +20,7 @@ liip_imagine:
           mode:          outbound
           allow_upscale: true
     portrait_optimal:
+      data_loader: photo_url_stream
       jpeg_quality:          85
       png_compression_level: 8
       filters:
@@ -22,6 +31,7 @@ liip_imagine:
           mode:          inset
           allow_upscale: true
     reunion_thumbnail:
+      data_loader: reunion_photo_url_stream
       jpeg_quality:          85
       png_compression_level: 8
       filters:
@@ -32,6 +42,7 @@ liip_imagine:
           mode:          outbound
           allow_upscale: true
     reunion_optimal:
+      data_loader: reunion_photo_url_stream
       jpeg_quality:          85
       png_compression_level: 8
       filters:
