@@ -6,7 +6,7 @@ liip_imagine:
     photo_url_stream:
       stream:
         wrapper: gaufrette://photo_url_fs/
-  driver: "gd"
+  driver: "imagick"
   filter_sets:
     portrait_thumbnail:
       data_loader: photo_url_stream
