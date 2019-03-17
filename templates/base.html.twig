@@ -2,7 +2,10 @@
 <head>
     {% block head %}
     {% include 'inc/css.html.twig' %}
-    <title>{% block title %}{% endblock %}{{ site_name }}</title>
+        <meta name="application-name" content="{{ site_name }}"/>
+        <meta name="msapplication-TileColor" content="#FFFFFF" />
+        <meta name="msapplication-TileImage" content="/assets/img/mstile-144x144.png" />
+        <title>{% block title %}{% endblock %}{{ site_name }}</title>
     {% endblock %}
 </head>
 <body>
