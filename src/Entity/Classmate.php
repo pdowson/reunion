@@ -125,7 +125,7 @@ class Classmate extends BaseEntity
      * @param string $current_name
      * @return Classmate
      */
-    public function setCurrentName(string $current_name): self
+    public function setCurrentName(?string $current_name): self
     {
         $this->current_name = $current_name;
 
