@@ -39,7 +39,7 @@ class ContactService
             }
             // Get the entity for the most recent reunion
             /** @var ClassmateYear $classmate_year */
-            $classmate_year = $this->em->getRepository("App\Entity\ClassmateYear")->findOneBy(["reunion_year" => getenv("reunion_year")]);
+            $classmate_year = $this->em->getRepository("App\Entity\ClassmateYear")->findOneBy(["reunion_year" => getenv("REUNION_YEAR")]);
 
             if($classmate_year !== null){
 
@@ -73,9 +73,9 @@ class ContactService
         $email_message .= "Zip: " . ($contact_form->get("zip")->getData() ? $contact_form->get("zip")->getData() : "not provided") . PHP_EOL;
         $email_message .= "Information: " . ($contact_form->get("info_string")->getData() ? PHP_EOL . $contact_form->get("info_string")->getData() : "not provided");
 
-        $message = (new \Swift_Message("Contact Form Submission From The " . getenv("short_name") . " Site"))
-            ->setFrom(getenv("from_addr"))
-            ->setTo(getenv("recipient_addr"))
+        $message = (new \Swift_Message("Contact Form Submission From The " . getenv("SHORT_NAME") . " Site"))
+            ->setFrom(getenv("FROM_ADDR"))
+            ->setTo(getenv("RECIPIENT_ADDR"))
             ->setBody(
                 $email_message,
                 "text/plain"
