@@ -5,8 +5,6 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'en'
-    app.path.classmate_photos: /uploads/photos/classmate
-    app.path.reunion_photos: /uploads/photos/reunion
     is_missing_status:
         not_missing: not_missing
         missing: missing

@@ -3,8 +3,6 @@ twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     globals:
-        classmate_photos: '%app.path.classmate_photos%'
-        reunion_photos: '%app.path.reunion_photos%'
         site_name: '%env(SITE_NAME)%'
         short_name: '%env(SHORT_NAME)%'
     form_themes: ['bootstrap_4_layout.html.twig']
