@@ -136,14 +136,14 @@ easy_admin:
           - { property: 'classmate_year' }
           - { property: 'email' }
           - { property: 'info_string' }
-          - { property: 'photo_file' }
+          - { property: 'photo_url', type: 'image', base_path: '/media/cache/resolve/portrait_optimal/' }
       list:
         form_filters:
           - enabled
           - { property: 'classmate_year', label: 'Year' }
         fields:
           - 'id'
-          - { property: 'photo_url', type: 'image', base_path: '%app.path.classmate_photos%' }
+          - { property: 'photo_url', type: 'image', base_path: '/media/cache/resolve/portrait_optimal/' }
           - { property: 'classmate_year' }
           - { property: 'classmate' }
           - 'email'
@@ -164,12 +164,12 @@ easy_admin:
       show:
         fields:
           - { property: 'reunion_year', format: '%%s' }
-          - { property: 'reunion_photo_file' }
+          - { property: 'reunion_photo_url', type: 'image', base_path: '/media/cache/resolve/reunion_optimal/' }
           - { property: 'reunion_date' }
       list:
         fields:
           - 'id'
-          - { property: 'reunion_photo_url', type: 'image', base_path: '%app.path.reunion_photos%' }
+          - { property: 'reunion_photo_url', type: 'image', base_path: '/media/cache/resolve/reunion_optimal/' }
           - { property: 'reunion_year', format: '%%s' }
           - 'reunion_date'
           - { property: 'updated_date', type: 'datetime', label: 'Updated Date'}
