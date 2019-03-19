@@ -73,9 +73,11 @@ class ContactService
         $email_message .= "Zip: " . ($contact_form->get("zip")->getData() ? $contact_form->get("zip")->getData() : "not provided") . PHP_EOL;
         $email_message .= "Information: " . ($contact_form->get("info_string")->getData() ? PHP_EOL . $contact_form->get("info_string")->getData() : "not provided");
 
+        $recipient_addresses = explode(" ", getenv("RECIPIENT_ADDR"));
+
         $message = (new \Swift_Message("Contact Form Submission From The " . getenv("SHORT_NAME") . " Site"))
             ->setFrom(getenv("FROM_ADDR"))
-            ->setTo(getenv("RECIPIENT_ADDR"))
+            ->setTo($recipient_addresses)
             ->setBody(
                 $email_message,
                 "text/plain"
