@@ -3,22 +3,22 @@
     <h1>Send Payment</h1>
     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
         <input type="hidden" name="cmd" value="_s-xclick">
-        <input type="hidden" name="on1" value="Attendee Name">
-        <input type="hidden" name="on0" value="Number of Attendees">
+        <input type="hidden" name="hosted_button_id" value="TWANCQ8ASFDBA">
+        <input type="hidden" name="on0" value="Total Attendees">
         <input type="hidden" name="currency_code" value="USD">
+        <input type="hidden" name="on1" value="Classmate Name">
         <div class="form-group">
-            <label for="attendee_name">Attendee Name</label>
+            <label for="attendee_name">Classmate Name</label>
             <input type="type" class="form-control" name="os1" id="attendee_name" placeholder="Enter Your Name" maxlength="200">
         </div>
         <div class="form-group">
             <label for="total_attendees">Total Attendees</label>
             <select name="os0" class="form-control" id="total_attendees">
                 <option value="One Ticket">One Ticket $50.00 USD</option>
-                <option value="Two Tickets">Two Tickets $50.00 USD</option>
+                <option value="Two Tickets">Two Tickets $100.00 USD</option>
             </select>
         </div>
         <div class="form-group text-center">
-            <input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----">
             <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_paynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
             <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
         </div>
