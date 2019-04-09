@@ -8,6 +8,7 @@ use App\Entity\Contact;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormInterface;
 
 class ContactService
 {
@@ -24,18 +25,18 @@ class ContactService
     }
 
     /**
-     * @param Form $contact_form
+     * @param FormInterface $contact_form
      * @return bool
      */
-    public function saveContact(Form $contact_form)
+    public function saveContact(FormInterface $contact_form)
     {
         try{
             $contact_params = [];
             /** @var Form $classmate */
             $classmate = $contact_form->get("classmate");
-            if($classmate->getNormData() !== null){
-                /** @var Classmate $classmate */
-                $contact_params["classmate"] = $classmate->getId();
+            $classmate = $this->em->getRepository("App\Entity\Classmate")->findOneBy(["id" => $classmate->getViewData()]);
+            if($classmate instanceof Classmate){
+                $contact_params["classmate"] = $classmate;
             }
             // Get the entity for the most recent reunion
             /** @var ClassmateYear $classmate_year */
@@ -59,10 +60,10 @@ class ContactService
         }
     }
 
-    private function sendContactEmail(?Form $classmate, Form $contact_form)
+    private function sendContactEmail(?Classmate $classmate, FormInterface $contact_form)
     {
         $email_message = "A new contact form submission has been made on the site " . getenv("SITE_NAME") . PHP_EOL . PHP_EOL;
-        $email_message .= "Classmate: " . ($classmate->getNormData() ? $classmate->__toString() : "not provided" . PHP_EOL);
+        $email_message .= "Classmate: " . ($classmate ? $classmate->__toString() : "not provided" . PHP_EOL);
         $email_message .= "Email: " . ($contact_form->get("email")->getData() ? $contact_form->get("email")->getData() : "not provided") . PHP_EOL;
         $email_message .= "Current Name: " . ($contact_form->get("current_name")->getData() ? $contact_form->get("current_name")->getData() : "not provided") . PHP_EOL;
         $email_message .= "Significant Other: " . ($contact_form->get("significant_other")->getData() ? $contact_form->get("significant_other")->getData() : "not provided") . PHP_EOL;
@@ -85,7 +86,7 @@ class ContactService
 
         $this->mailer->send($message);
     }
-    private function saveContactEntity(?Form $classmate, array $contact_params, ClassmateYear $classmate_year, Form $contact_form)
+    private function saveContactEntity(?Classmate $classmate, array $contact_params, ClassmateYear $classmate_year, FormInterface $contact_form)
     {
         $contact_params["classmate_year"] = $classmate_year->getId();
 
@@ -93,7 +94,7 @@ class ContactService
         if($contact === null || $contact->getClassmate() === null){
             $contact = new Contact();
         }
-        if($classmate->getNormData() !== null) {
+        if($classmate instanceof Classmate) {
             /** @var Classmate $classmate */
             $contact->setClassmate($classmate);
         }
