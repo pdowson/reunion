@@ -37,7 +37,7 @@ class DefaultController extends AbstractController
 
         if ($contact_form->isSubmitted() && $contact_form->isValid()) {
             if($contact_service->saveContact($contact_form) === true){
-                $this->addFlash("success", "Thanks for updating your information! Cindy WILL be happy");
+                $this->addFlash("success", "Thanks for updating your information!");
             }else{
                 $this->addFlash("danger", "Problems happen to everyone");
             }
