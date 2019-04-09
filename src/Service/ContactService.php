@@ -63,7 +63,7 @@ class ContactService
     private function sendContactEmail(?Classmate $classmate, FormInterface $contact_form)
     {
         $email_message = "A new contact form submission has been made on the site " . getenv("SITE_NAME") . PHP_EOL . PHP_EOL;
-        $email_message .= "Classmate: " . ($classmate ? $classmate->__toString() : "not provided" . PHP_EOL);
+        $email_message .= "Classmate: " . ($classmate ? $classmate->__toString() : "not provided") . PHP_EOL;
         $email_message .= "Email: " . ($contact_form->get("email")->getData() ? $contact_form->get("email")->getData() : "not provided") . PHP_EOL;
         $email_message .= "Current Name: " . ($contact_form->get("current_name")->getData() ? $contact_form->get("current_name")->getData() : "not provided") . PHP_EOL;
         $email_message .= "Significant Other: " . ($contact_form->get("significant_other")->getData() ? $contact_form->get("significant_other")->getData() : "not provided") . PHP_EOL;
