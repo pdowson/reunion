@@ -6,7 +6,7 @@ RUN apt-get update -y && \
     unzip \
     git \
     vim \
-    mysql-client \
+    sqlite3 \
     zlib1g-dev \
     libfreetype6-dev \
     libicu-dev \
@@ -17,15 +17,11 @@ RUN apt-get update -y && \
     rm -rf /var/lib/apt/lists/* && \
     php -r "copy('https://getcomposer.org/installer', '/root/composer-setup.php');" && \
     php /root/composer-setup.php --install-dir=/usr/local/bin  --filename=composer && \
-    php -r "unlink('/root/composer-setup.php');"
-
-RUN docker-php-ext-configure \
-    gd \
+    php -r "unlink('/root/composer-setup.php');" && \
+    docker-php-ext-configure gd \
     --with-jpeg-dir=/usr/lib \
     --with-freetype-dir=/usr/include/freetype2 && \
     docker-php-ext-install \
-    pdo_mysql \
-    mysqli \
     zip \
     gd \
     opcache \
@@ -33,15 +29,13 @@ RUN docker-php-ext-configure \
     pecl install apcu && \
     echo "extension=apcu.so" > /usr/local/etc/php/conf.d/apcu.ini && \
     pecl install imagick && \
-    docker-php-ext-enable imagick
-
-RUN pecl install xdebug \
+    docker-php-ext-enable imagick && \
+    pecl install xdebug \
     && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.remote_autostart=off" >> /usr/local/etc/php/conf.d/xdebug.ini \
-    && echo "xdebug.idekey=netbeans-xdebug" >> /usr/local/etc/php/conf.d/xdebug.ini
-
-RUN echo "SSLCipherSuite EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH" >> /etc/apache2/conf-available/ssl-params.conf && \
+    && echo "xdebug.idekey=netbeans-xdebug" >> /usr/local/etc/php/conf.d/xdebug.ini && \
+    echo "SSLCipherSuite EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH" >> /etc/apache2/conf-available/ssl-params.conf && \
     echo "SSLProtocol All -SSLv2 -SSLv3" >> /etc/apache2/conf-available/ssl-params.conf && \
     echo "SSLHonorCipherOrder On" >> /etc/apache2/conf-available/ssl-params.conf && \
     a2enmod -q rewrite && \
@@ -51,7 +45,14 @@ RUN echo "SSLCipherSuite EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH" >> /et
     a2enconf -q ssl-params && \
     ln -sfT /dev/stdout "/var/log/apache2/php.log" && \
     ln -sfT /dev/stdout "/var/log/apache2/error.log" && \
-    ln -sfT /dev/stdout "/var/log/apache2/access.log"
+    ln -sfT /dev/stdout "/var/log/apache2/access.log" && \
+    openssl genrsa -out /etc/ssl/reunion.local.key 3072 && \
+    openssl req -new -out /etc/ssl/reunion.local.csr -sha256 -key /etc/ssl/reunion.local.key -subj "/C=US/ST=Minnesota/L=Minneapolis/O=Reunion/CN=reunion.local" && \
+    openssl x509 -req -in /etc/ssl/reunion.local.csr -days 365 -signkey /etc/ssl/reunion.local.key -out /etc/ssl/reunion.local.crt && \
+    rm /etc/ssl/reunion.local.csr && \
+    chown -R www-data:www-data "/var/log/apache2/" && \
+    chown www-data:www-data "/etc/ssl/reunion.local.crt" && \
+    chown www-data:www-data "/etc/ssl/reunion.local.key"
 
 RUN mkdir /var/www/.composer/ && chown -R www-data:www-data /var/www/
 
@@ -60,13 +61,5 @@ WORKDIR /var/www/html
 ADD ./apache/apache2.conf /etc/apache2/apache2.conf
 ADD ./apache/000-default.conf /etc/apache2/sites-available/000-default.conf
 ADD ./apache/reunion.php.ini /usr/local/etc/php/conf.d/reunion.php.ini
-
-RUN openssl genrsa -out /etc/ssl/reunion.local.key 3072 && \
-    openssl req -new -out /etc/ssl/reunion.local.csr -sha256 -key /etc/ssl/reunion.local.key -subj "/C=US/ST=Minnesota/L=Minneapolis/O=Reunion/CN=reunion.local" && \
-    openssl x509 -req -in /etc/ssl/reunion.local.csr -days 365 -signkey /etc/ssl/reunion.local.key -out /etc/ssl/reunion.local.crt && \
-    rm /etc/ssl/reunion.local.csr && \
-    chown -R www-data:www-data "/var/log/apache2/" && \
-    chown www-data:www-data "/etc/ssl/reunion.local.crt" && \
-    chown www-data:www-data "/etc/ssl/reunion.local.key"
 
 CMD ["bash", "/var/www/html/startup-local.sh"]

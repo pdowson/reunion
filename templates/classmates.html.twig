@@ -20,7 +20,7 @@
                             {%  for info in classmate.getClassmateInfos %}
                                 {% if info.getPhotoUrl != "" %}
                                     <a href="{{ asset(info.getPhotoUrl) | imagine_filter('portrait_optimal')  }}" data-title="{{ classmate.__toString|e }} - {{ info.getClassmateYear.getReunionYear }}" data-gallery="classmate-{{ classmate.id }}-name" data-toggle="lightbox">
-                                        <button type="button" data-url="{{ vich_uploader_asset(info, 'photo_file', 'App\\Entity\\ClassmateInfo') }}" class="btn btn-primary btn-sm">{{ info.getClassmateYear.getReunionYear }}</button>
+                                        <button type="button" data-url="{{ info.getPhotoUrl }}" class="btn btn-primary btn-sm">{{ info.getClassmateYear.getReunionYear }}</button>
                                     </a>
                                 {% endif %}
                             {% endfor %}
