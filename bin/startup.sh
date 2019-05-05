@@ -17,8 +17,6 @@ trap 'kill ${!}; term_handler' SIGTERM
 
 BASE_DIR=/var/www/html
 
-ln -s /var/www/data/data.db /var/www/html/var/data.db
-
 ln -s /var/www/data/images/ /var/www/html/public/images/
 
 php ${BASE_DIR}/bin/console cache:warmup --env=prod --no-interaction
