@@ -71,4 +71,4 @@ USER www-data:www-data
 
 RUN COMPOSER_MEMORY_LIMIT=-1 composer install --apcu-autoloader
 
-CMD ["bash", "/var/www/html/startup.sh"]
+CMD ["bash", "/var/www/html/bin/startup.sh"]

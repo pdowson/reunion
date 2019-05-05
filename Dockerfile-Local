@@ -62,4 +62,4 @@ ADD ./apache/apache2.conf /etc/apache2/apache2.conf
 ADD ./apache/000-default.conf /etc/apache2/sites-available/000-default.conf
 ADD ./apache/reunion.php.ini /usr/local/etc/php/conf.d/reunion.php.ini
 
-CMD ["bash", "/var/www/html/startup-local.sh"]
+CMD ["bash", "/var/www/html/bin/startup-local.sh"]
