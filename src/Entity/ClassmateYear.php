@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use DateTime;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
@@ -98,7 +100,7 @@ class ClassmateYear extends BaseEntity
         return $this->reunion_date;
     }
 
-    public function setReunionDate(\DateTimeInterface $reunion_date = null)
+    public function setReunionDate(DateTimeInterface $reunion_date = null)
     {
         $this->reunion_date = $reunion_date;
 
@@ -208,13 +210,14 @@ class ClassmateYear extends BaseEntity
 
     /**
      * @param File $reunion_photo_file
+     * @throws
      */
     public function setReunionPhotoFile(File $reunion_photo_file = null)
     {
         $this->reunion_photo_file = $reunion_photo_file;
         if ($reunion_photo_file) {
             // if 'updatedAt' is not defined in your entity, use another property
-            $this->setUpdatedDate(new \DateTime('now'));
+            $this->setUpdatedDate(new DateTime('now'));
         }
     }
 

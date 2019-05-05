@@ -29,7 +29,6 @@ $(document).ready(function(){
     // If the last slug is numeric and the first slug is classmate, we can manipulate the contact form.
     if(path_names[1] === 'classmate' && !isNaN(parseInt(path_names[path_names.length-1])) && document.getElementById("contact") !== null){
         $('#contact #contact_classmate').parent().remove();
-        $('#contact').prepend('<input type="hidden" name="contact[classmate]" value="' + parseInt(path_names[path_names.length-1]) + '" />')
-        console.log(true);
+        $('#contact').prepend('<input type="hidden" name="contact[classmate]" value="' + parseInt(path_names[path_names.length-1]) + '" />');
     }
 });

@@ -3,7 +3,9 @@
 namespace App\Entity;
 
 use App\Enum\ClassmateAttendanceStatusEnum;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ClassmateAttendanceRepository")
@@ -41,6 +43,10 @@ class ClassmateAttendance extends BaseEntity
      */
     private $attendees;
 
+    /**
+     * @return string
+     * @throws Exception
+     */
     public function __toString()
     {
         return
@@ -50,11 +56,18 @@ class ClassmateAttendance extends BaseEntity
             " - Attendance";
     }
 
+    /**
+     * @return int|null
+     */
     public function getNumAttendees(): ?int
     {
         return $this->num_attendees;
     }
 
+    /**
+     * @param int|null $num_attendees
+     * @return ClassmateAttendance
+     */
     public function setNumAttendees(?int $num_attendees): self
     {
         $this->num_attendees = $num_attendees;
@@ -62,15 +75,23 @@ class ClassmateAttendance extends BaseEntity
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getStatus(): ?string
     {
         return $this->status;
     }
 
+    /**
+     * @param string|null $status
+     * @return ClassmateAttendance
+     * @throws Exception
+     */
     public function setStatus(?string $status): self
     {
         if(!ClassmateAttendanceStatusEnum::isValidValue($status)){
-            throw new \Exception("Invalid enumeration value for ClassmateAttendanceStatusEnum: ". $status);
+            throw new Exception("Invalid enumeration value for ClassmateAttendanceStatusEnum: ". $status);
         }
 
         $this->status = $status;
@@ -78,23 +99,37 @@ class ClassmateAttendance extends BaseEntity
         return $this;
     }
 
-    public function getResponseDate(): ?\DateTimeInterface
+    /**
+     * @return DateTimeInterface|null
+     */
+    public function getResponseDate(): ?DateTimeInterface
     {
         return $this->response_date;
     }
 
-    public function setResponseDate(?\DateTimeInterface $response_date): self
+    /**
+     * @param DateTimeInterface|null $response_date
+     * @return ClassmateAttendance
+     */
+    public function setResponseDate(?DateTimeInterface $response_date): self
     {
         $this->response_date = $response_date;
 
         return $this;
     }
 
+    /**
+     * @return Classmate|null
+     */
     public function getClassmate(): ?Classmate
     {
         return $this->classmate;
     }
 
+    /**
+     * @param Classmate|null $classmate
+     * @return ClassmateAttendance
+     */
     public function setClassmate(?Classmate $classmate): self
     {
         $this->classmate = $classmate;
@@ -102,11 +137,18 @@ class ClassmateAttendance extends BaseEntity
         return $this;
     }
 
+    /**
+     * @return ClassmateYear|null
+     */
     public function getClassmateYear(): ?ClassmateYear
     {
         return $this->classmate_year;
     }
 
+    /**
+     * @param ClassmateYear|null $classmate_year
+     * @return ClassmateAttendance
+     */
     public function setClassmateYear(?ClassmateYear $classmate_year): self
     {
         $this->classmate_year = $classmate_year;
@@ -114,11 +156,18 @@ class ClassmateAttendance extends BaseEntity
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getAttendees(): ?string
     {
         return $this->attendees;
     }
 
+    /**
+     * @param string|null $attendees
+     * @return ClassmateAttendance
+     */
     public function setAttendees(?string $attendees): self
     {
         $this->attendees = $attendees;

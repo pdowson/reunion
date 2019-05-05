@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -131,7 +132,7 @@ class ClassmateInfo extends BaseEntity
         $this->photo_file = $photo_file;
         if ($photo_file) {
             // if 'updatedAt' is not defined in your entity, use another property
-            $this->setUpdatedDate(new \DateTime('now'));
+            $this->setUpdatedDate(new DateTime('now'));
         }
     }
 

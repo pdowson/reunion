@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -48,10 +49,10 @@ abstract class BaseEntity {
      */
     public function preUpdate() {
         if (empty($this->created_date)) {
-            $this->created_date = new \DateTime();
+            $this->created_date = new DateTime();
         }
         if (empty($this->updated_date)) {
-            $this->updated_date = new \DateTime();
+            $this->updated_date = new DateTime();
         }
         if (empty($this->updated_by)) {
             $this->updated_by = 'anon';
@@ -81,7 +82,7 @@ abstract class BaseEntity {
     }
 
     /**
-     * @param \DateTime $createdDate
+     * @param DateTime $createdDate
      * @return BaseEntity
      */
     public function setCreatedDate($createdDate): self
@@ -92,15 +93,15 @@ abstract class BaseEntity {
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
-    public function getCreatedDate(): ?\DateTime
+    public function getCreatedDate(): ?DateTime
     {
         return $this->created_date;
     }
 
     /**
-     * @param \DateTime $updated_date
+     * @param DateTime $updated_date
      * @return BaseEntity
      */
     public function setUpdatedDate($updated_date): self
@@ -111,9 +112,9 @@ abstract class BaseEntity {
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
-    public function getUpdatedDate(): ?\DateTime
+    public function getUpdatedDate(): ?DateTime
     {
         return $this->updated_date;
     }
@@ -157,7 +158,7 @@ abstract class BaseEntity {
     }
 
     /**
-     * @param \DateTime $delete_date_time
+     * @param DateTime $delete_date_time
      *
      * @return BaseEntity
      */
@@ -169,9 +170,9 @@ abstract class BaseEntity {
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
-    public function getDeleteDateTime(): ?\DateTime
+    public function getDeleteDateTime(): ?DateTime
     {
         return $this->delete_date_time;
     }

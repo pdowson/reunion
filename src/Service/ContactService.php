@@ -6,7 +6,10 @@ use App\Entity\Classmate;
 use App\Entity\ClassmateYear;
 use App\Entity\Contact;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Psr\Log\LoggerInterface;
+use Swift_Mailer;
+use Swift_Message;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormInterface;
 
@@ -17,7 +20,7 @@ class ContactService
     private $mailer;
     private $logger;
 
-    public function __construct(EntityManagerInterface $em, \Swift_Mailer $mailer, LoggerInterface $logger)
+    public function __construct(EntityManagerInterface $em, Swift_Mailer $mailer, LoggerInterface $logger)
     {
         $this->em = $em;
         $this->mailer = $mailer;
@@ -53,7 +56,7 @@ class ContactService
                 $this->logger->error("Unable to determine what year it is");
                 return false;
             }
-        }catch(\Exception $ex){
+        }catch(Exception $ex){
             $this->logger->error($ex->getMessage());
             $this->logger->debug($ex->getTraceAsString());
             return false;
@@ -76,7 +79,7 @@ class ContactService
 
         $recipient_addresses = explode(" ", getenv("RECIPIENT_ADDR"));
 
-        $message = (new \Swift_Message("Contact Form Submission From The " . getenv("SHORT_NAME") . " Site"))
+        $message = (new Swift_Message("Contact Form Submission From The " . getenv("SHORT_NAME") . " Site"))
             ->setFrom(getenv("FROM_ADDR"))
             ->setTo($recipient_addresses)
             ->setBody(
