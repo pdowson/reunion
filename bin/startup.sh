@@ -17,8 +17,6 @@ trap 'kill ${!}; term_handler' SIGTERM
 
 BASE_DIR=/var/www/html
 
-ln -s /var/www/data/images/ /var/www/html/public/images/
-
 php ${BASE_DIR}/bin/console cache:warmup --env=prod --no-interaction
 
 php ${BASE_DIR}/bin/console doctrine:migrations:migrate --env=prod --no-interaction

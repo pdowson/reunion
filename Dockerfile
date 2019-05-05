@@ -1,5 +1,8 @@
 FROM php:7.2-apache
 
+EXPOSE 80/tcp
+EXPOSE 443/tcp
+
 ENV APP_ENV prod
 ARG APP_SECRET
 ARG DATABASE_URL
@@ -16,6 +19,7 @@ RUN apt-get update -y && \
     unzip \
     git \
     vim \
+    cron \
     zlib1g-dev \
     libfreetype6-dev \
     libicu-dev \
@@ -51,18 +55,19 @@ RUN apt-get update -y && \
     ln -sfT /dev/stdout "/var/log/apache2/error.log" && \
     ln -sfT /dev/stdout "/var/log/apache2/access.log" && \
     mkdir /var/www/.composer/ && chown -R www-data:www-data /var/www/ && \
-    openssl genrsa -out /etc/ssl/reunion.local.key 3072 && \
-    openssl req -new -out /etc/ssl/reunion.local.csr -sha256 -key /etc/ssl/reunion.local.key -subj "/C=US/ST=Minnesota/L=Minneapolis/O=Reunion/CN=reunion.local" && \
-    openssl x509 -req -in /etc/ssl/reunion.local.csr -days 365 -signkey /etc/ssl/reunion.local.key -out /etc/ssl/reunion.local.crt && \
-    rm /etc/ssl/reunion.local.csr && \
-    chown -R www-data:www-data "/var/log/apache2/" && \
-    chown www-data:www-data "/etc/ssl/reunion.local.crt" && \
-    chown www-data:www-data "/etc/ssl/reunion.local.key"
+    ln -s /var/www/data/images/ /var/www/html/public/images/ && \
+    ln -s /var/www/data/letsencrypt/ /etc/letsencrypt/ && \
+    wget https://dl.eff.org/certbot-auto && \
+    mv certbot-auto /usr/local/bin/certbot-auto && \
+    chown root /usr/local/bin/certbot-auto && \
+    chmod 0755 /usr/local/bin/certbot-auto && \
+    /usr/local/bin/certbot-auto --apache
 
 WORKDIR /var/www/html
 
 ADD --chown=www-data:www-data . /var/www/html
 
+ADD ./apache/0certbot-hourly /etc/cron.hourly/0certbot-hourly
 ADD ./apache/apache2.conf /etc/apache2/apache2.conf
 ADD ./apache/000-default.conf /etc/apache2/sites-available/000-default.conf
 ADD ./apache/reunion.php.ini /usr/local/etc/php/conf.d/reunion.php.ini
