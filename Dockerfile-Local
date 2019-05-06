@@ -1,12 +1,27 @@
 FROM php:7.2-apache
 
+EXPOSE 8080/tcp
+EXPOSE 8443/tcp
+
+ENV APP_ENV dev
+ARG APP_SECRET
+ARG DATABASE_URL
+ARG MAILER_URL
+ARG SITE_NAME
+ARG SHORT_NAME
+ARG REUNION_YEAR
+ARG FROM_ADDR
+ARG RECIPIENT_ADDR
+
 RUN apt-get update -y && \
     apt-get install -y \
+    wget \
     zip \
     unzip \
     git \
     vim \
     sqlite3 \
+    cron \
     zlib1g-dev \
     libfreetype6-dev \
     libicu-dev \
