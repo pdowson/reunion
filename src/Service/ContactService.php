@@ -83,8 +83,11 @@ class ContactService
             ->setFrom(getenv("FROM_ADDR"))
             ->setTo($recipient_addresses)
             ->setBody(
+                nl2br($email_message),
+                'text/html'
+            )->addPart(
                 $email_message,
-                "text/plain"
+                'text/plain'
             );
 
         $this->mailer->send($message);
