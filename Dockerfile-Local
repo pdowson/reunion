@@ -21,7 +21,6 @@ RUN apt-get update -y && \
     git \
     vim \
     sqlite3 \
-    cron \
     zlib1g-dev \
     libfreetype6-dev \
     libicu-dev \
