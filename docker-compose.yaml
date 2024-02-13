@@ -1,0 +1,48 @@
+version: '3.1'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile-Local
+    volumes:
+      - ./:/var/www/html
+    env_file:
+      - path: ./.env
+        required: true
+    ports:
+      - 8080:80
+      - 8443:443
+    networks:
+      network:
+        ipv4_address: 10.5.0.2
+
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+
+    volumes:
+      - db:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: reunion
+      MYSQL_USER: reunion
+      MYSQL_PASSWORD: noinuer
+    ports:
+      - 3306:3306
+    networks:
+      network:
+        ipv4_address: 10.5.0.3
+
+
+networks:
+  network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.5.0.0/16
+          gateway: 10.5.0.1
+
+volumes:
+  db:

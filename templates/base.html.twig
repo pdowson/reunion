@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<head>
-    {% block head %}
+    <head>
+        {% block head %}
     {% include 'inc/css.html.twig' %}
         <meta name="application-name" content="{{ site_name }}"/>
         <meta name="msapplication-TileColor" content="#FFFFFF" />
         <meta name="msapplication-TileImage" content="/assets/img/mstile-144x144.png" />
         <title>{% block title %}{% endblock %}{{ site_name }}</title>
-    {% endblock %}
-</head>
-<body>
-
+        {% endblock %}
+    </head>
+    <body>
+        
 {% block body %}
     {% include 'inc/nav.html.twig' %}
     <!-- Page Content -->
@@ -36,7 +36,7 @@
     </main>
     <!-- /.container -->
 {% endblock %}
-</body>
+    </body>
 
 {% include 'inc/foot.html.twig' %}
 {% include 'inc/js.html.twig' %}
