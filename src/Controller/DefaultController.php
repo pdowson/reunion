@@ -23,29 +23,29 @@ class DefaultController extends AbstractController
         return $this->render('index.html.twig', $parameters);
     }
 
-    /**
-     * @Route("/contact", name="contact")
-     * @param Request $request
-     * @param ContactService $contact_service
-     * @return Response
-     */
-    public function contact(Request $request, ContactService $contact_service = null)
-    {
-        $contact_form = $this->createForm(ContactType::class);
+    // /**
+    //  * @Route("/contact", name="contact")
+    //  * @param Request $request
+    //  * @param ContactService $contact_service
+    //  * @return Response
+    //  */
+    // public function contact(Request $request, ContactService $contact_service = null)
+    // {
+    //     $contact_form = $this->createForm(ContactType::class);
 
-        $contact_form->handleRequest($request);
+    //     $contact_form->handleRequest($request);
 
-        if ($contact_form->isSubmitted() && $contact_form->isValid()) {
-            if($contact_service->saveContact($contact_form) === true){
-                $this->addFlash("success", "Thanks for updating your information!");
-            }else{
-                $this->addFlash("danger", "Problems happen to everyone");
-            }
-            return $this->redirectToRoute("contact");
-        }
+    //     if ($contact_form->isSubmitted() && $contact_form->isValid()) {
+    //         if($contact_service->saveContact($contact_form) === true){
+    //             $this->addFlash("success", "Thanks for updating your information!");
+    //         }else{
+    //             $this->addFlash("danger", "Problems happen to everyone");
+    //         }
+    //         return $this->redirectToRoute("contact");
+    //     }
 
-        return $this->render("contact.html.twig", [
-            "contact_form" => $contact_form->createView(),
-        ]);
-    }
+    //     return $this->render("contact.html.twig", [
+    //         "contact_form" => $contact_form->createView(),
+    //     ]);
+    // }
 }

@@ -1,0 +1,10 @@
+{
+    "workbench.colorTheme": "Default Light Modern",
+    "workbench.startupEditor": "none",
+    "symfony-vscode.phpExecutablePath": "C:\\Users\\admin\\bin\\php-7.4.32-Win32-vc15-x64\\php.exe",
+    "symfony-vscode.shellExecutable": "C:\\Users\\admin\\bin\\php-7.4.32-Win32-vc15-x64\\php.exe",
+    "php.validate.executablePath": "C:\\Users\\admin\\bin\\php-7.4.32-Win32-vc15-x64\\php.exe",
+    "intelephense.environment.documentRoot": "public",
+    "symfony-vscode.consolePath": "C:\\Users\\admin\\bin\\symfony-cli_windows_amd64\\symfony.exe",
+    "intelephense.environment.phpVersion": "7.4.32"
+}

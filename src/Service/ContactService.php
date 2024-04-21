@@ -8,8 +8,8 @@ use App\Entity\Contact;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Psr\Log\LoggerInterface;
-use Swift_Mailer;
-use Swift_Message;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormInterface;
 
@@ -20,7 +20,7 @@ class ContactService
     private $mailer;
     private $logger;
 
-    public function __construct(EntityManagerInterface $em, Swift_Mailer $mailer, LoggerInterface $logger)
+    public function __construct(EntityManagerInterface $em, MailerInterface $mailer, LoggerInterface $logger)
     {
         $this->em = $em;
         $this->mailer = $mailer;
@@ -79,19 +79,16 @@ class ContactService
 
         $recipient_addresses = explode(" ", getenv("RECIPIENT_ADDR"));
 
-        $message = (new Swift_Message("Contact Form Submission From The " . getenv("SHORT_NAME") . " Site"))
-            ->setFrom(getenv("FROM_ADDR"))
-            ->setTo($recipient_addresses)
-            ->setBody(
-                nl2br($email_message),
-                'text/html'
-            )->addPart(
-                $email_message,
-                'text/plain'
-            );
+        $message = (new Email())
+            ->from(getenv("FROM_ADDR"))
+            ->to($recipient_addresses)
+            ->subject("Contact Form Submission From The " . getenv("SHORT_NAME") . " Site")
+            ->text($email_message)
+            ->html(nl2br($email_message));
 
         $this->mailer->send($message);
     }
+    
     private function saveContactEntity(?Classmate $classmate, array $contact_params, ClassmateYear $classmate_year, FormInterface $contact_form)
     {
         $contact_params["classmate_year"] = $classmate_year->getId();
