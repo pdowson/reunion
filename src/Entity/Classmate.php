@@ -53,11 +53,6 @@ class Classmate extends BaseEntity
     private $is_missing;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Contact", mappedBy="classmate", orphanRemoval=true)
-     */
-    private $contacts;
-
-    /**
      * @ORM\Column(type="boolean", options={"default" : false})
      */
     private $is_deceased;
@@ -67,7 +62,6 @@ class Classmate extends BaseEntity
         $this->classmate_addresses = new ArrayCollection();
         $this->classmate_infos = new ArrayCollection();
         $this->classmate_attendances = new ArrayCollection();
-        $this->contacts = new ArrayCollection();
     }
 
     public function __toString()
@@ -284,37 +278,6 @@ class Classmate extends BaseEntity
     public function setIsMissing(string $is_missing): self
     {
         $this->is_missing = $is_missing;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Contact[]
-     */
-    public function getContacts(): Collection
-    {
-        return $this->contacts;
-    }
-
-    public function addContact(Contact $contact): self
-    {
-        if (!$this->contacts->contains($contact)) {
-            $this->contacts[] = $contact;
-            $contact->setClassmate($this);
-        }
-
-        return $this;
-    }
-
-    public function removeContact(Contact $contact): self
-    {
-        if ($this->contacts->contains($contact)) {
-            $this->contacts->removeElement($contact);
-            // set the owning side to null (unless already changed)
-            if ($contact->getClassmate() === $this) {
-                $contact->setClassmate(null);
-            }
-        }
 
         return $this;
     }

@@ -22,13 +22,3 @@ $('#return-to-top').click(function() {      // When arrow is clicked
         scrollTop : 0                       // Scroll to top of body
     }, 500);
 });
-
-$(document).ready(function(){
-    // Get the slugs in the path as an array
-    let path_names = window.location.pathname.split("/");
-    // If the last slug is numeric and the first slug is classmate, we can manipulate the contact form.
-    if(path_names[1] === 'classmate' && !isNaN(parseInt(path_names[path_names.length-1])) && document.getElementById("contact") !== null){
-        $('#contact #contact_classmate').parent().remove();
-        $('#contact').prepend('<input type="hidden" name="contact[classmate]" value="' + parseInt(path_names[path_names.length-1]) + '" />');
-    }
-});

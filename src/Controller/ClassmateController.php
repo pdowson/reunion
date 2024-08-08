@@ -3,8 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Classmate;
-use App\Form\ContactType;
-use App\Service\ContactService;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,10 +38,9 @@ class ClassmateController extends AbstractController
      * @Route("/classmate/{id<\d+>?1}", name="classmate_detail", options={"expose"=true})
      * @param $request Request)
      * @param $id integer
-     * @param $contact_service ContactService
      * @return Response
      */
-    public function classmateDetail(Request $request, $id, ContactService $contact_service = null)
+    public function classmateDetail(Request $request, $id)
     {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
@@ -57,20 +54,6 @@ class ClassmateController extends AbstractController
                 "first_name" => "ASC"
             ]
         );
-
-        $contact_form = $this->createForm(ContactType::class);
-        $contact_form->handleRequest($request);
-
-        if ($contact_form->isSubmitted() && $contact_form->isValid()) {
-            if($contact_service->saveContact($contact_form) === true){
-                $this->addFlash("success", "Thanks for updating your information!");
-            }else{
-                $this->addFlash("danger", "Problems happen to everyone");
-            }
-            return $this->redirectToRoute("classmate_detail", ["id" => $id]);
-        }
-
-        $parameters["contact_form"] = $contact_form->createView();
 
         return $this->render('detail.html.twig', $parameters);
     }

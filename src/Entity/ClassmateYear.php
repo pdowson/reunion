@@ -53,17 +53,11 @@ class ClassmateYear extends BaseEntity
      */
     private $classmate_info;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Contact", mappedBy="classmate_year")
-     */
-    private $contacts;
-
     public function __construct()
     {
         $this->classmate_address = new ArrayCollection();
         $this->classmate_attendance = new ArrayCollection();
         $this->classmate_info = new ArrayCollection();
-        $this->contacts = new ArrayCollection();
     }
 
     public function __toString()
@@ -220,36 +214,4 @@ class ClassmateYear extends BaseEntity
             $this->setUpdatedDate(new DateTime('now'));
         }
     }
-
-    /**
-     * @return Collection|Contact[]
-     */
-    public function getContacts(): Collection
-    {
-        return $this->contacts;
-    }
-
-    public function addContact(Contact $contact): self
-    {
-        if (!$this->contacts->contains($contact)) {
-            $this->contacts[] = $contact;
-            $contact->setClassmateYear($this);
-        }
-
-        return $this;
-    }
-
-    public function removeContact(Contact $contact): self
-    {
-        if ($this->contacts->contains($contact)) {
-            $this->contacts->removeElement($contact);
-            // set the owning side to null (unless already changed)
-            if ($contact->getClassmateYear() === $this) {
-                $contact->setClassmateYear(null);
-            }
-        }
-
-        return $this;
-    }
-
 }
