@@ -26,6 +26,11 @@ class User extends BaseEntity implements UserInterface
      */
     private $password;
 
+    public function __toString()
+    {
+        return $this->email;
+    }
+
     public function getEmail(): ?string
     {
         return $this->email;

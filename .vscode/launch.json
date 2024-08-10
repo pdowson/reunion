@@ -1,0 +1,12 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Listen for Xdebug",
+            "type": "php",
+            "request": "launch",
+            "port": 9003,
+            "runtimeExecutable": "C:\\Users\\admin\\bin\\php-7.4.32-Win32-vc15-x64\\php.exe"
+        }
+    ]
+}
