@@ -46,6 +46,7 @@ easy_admin:
           - { property: 'is_missing', label: 'Missing?' }
           - { property: 'updated_date', type: 'datetime', label: 'Updated Date'}
         actions: ['show']
+        sort: ['first_name', 'asc']
       form:
         fields:
           - { property: 'first_name', type: 'text', label: 'First Name' }
@@ -84,6 +85,7 @@ easy_admin:
           - 'phone'
           - { property: 'updated_date', type: 'datetime', label: 'Updated Date'}
         actions: ['show']
+        sort: ['classmate.first_name', 'asc']
       form:
         fields:
           - { property: 'classmate', type: 'entity', type_options: { class: 'App\Entity\Classmate', multiple: false } }
@@ -117,6 +119,7 @@ easy_admin:
           - { property: 'classmate' }
           - { property: 'updated_date', type: 'datetime', label: 'Updated Date'}
         actions: ['show']
+        sort: ['classmate.first_name', 'asc']
       form:
         fields:
           - { property: 'classmate', type: 'entity', type_options: { class: 'App\Entity\Classmate', multiple: false } }
@@ -149,6 +152,7 @@ easy_admin:
           - 'email'
           - { property: 'updated_date', type: 'datetime', label: 'Updated Date'}
         actions: ['show']
+        sort: ['classmate.first_name', 'asc']
       form:
         fields:
           - { property: 'classmate', type: 'entity', type_options: { class: 'App\Entity\Classmate', multiple: false } }
