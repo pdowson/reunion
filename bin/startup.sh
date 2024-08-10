@@ -23,6 +23,10 @@ php ${BASE_DIR}/bin/console doctrine:migrations:migrate --env=prod --no-interact
 
 php ${BASE_DIR}/bin/console assets:install --env=prod --no-interaction
 
+chown -R www-data: ${BASE_DIR}/public/images
+chown -R www-data: ${BASE_DIR}/public/media
+chown -R www-data: ${BASE_DIR}/var
+
 # run the original php CMD to put the foreground apache in the background
 apache2-foreground &
 
