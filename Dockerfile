@@ -12,8 +12,9 @@ ARG REUNION_YEAR
 ARG FROM_ADDR
 ARG RECIPIENT_ADDR
 
-RUN apt-get update -y && \
-    apt-get install -y \
+RUN apt update -y && \
+    apt upgrade -y && \
+    apt install -y \
     wget \
     zip \
     unzip \
@@ -26,7 +27,7 @@ RUN apt-get update -y && \
     libzip-dev \
     libmagickwand-dev \
     libpng-dev && \
-    apt-get clean && \
+    apt clean && \
     rm -rf /var/lib/apt/lists/*
 
 RUN php -r "copy('https://getcomposer.org/installer', '/root/composer-setup.php');" && \
